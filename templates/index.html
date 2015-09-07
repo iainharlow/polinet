@@ -2,12 +2,47 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Hello, World!</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<title>IainTicker</title>
+		<link rel='stylesheet' type='text/css' href='/static/style_iainticker.css'>
+		<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+		<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Lato'>
+
+		{{ plot_resources|indent(4)|safe }}
+		{{ plot_script|indent(4)|safe }}
+ 
 	</head>
 	<body>
-		<div>
-  			<h1>Hello, World!</h1>
+		<div class=page>
+			<h1>Welcome to Iain's Stock Ticker!</h1>
+  			<h2>You have selected: {{ name }}</h2>
 		</div>
+		<div>
+  			<h2>User Input</h2>
+  			<div class=metanav>
+
+    			<h4>Here you can enter a new stock ticker eg. GOOG, and check desired features.</h4>
+
+    			<form id='input' method='post' action='index'>	
+	  			<p>
+					Ticker symbol: <input type='text' name='ticker' />
+	  			</p>
+	  			<p>
+					Closing price <input type="checkbox" name='features' value='Close'><br>
+					Adjusted closing price <input type="checkbox" name='features' value='Adj. Close'><br>
+					Volume <input type="checkbox" name='features' value='Volume'><br>
+	    			<input type="submit" value="Submit">
+	  			</p>
+				</form>
+
+  			</div>
+		</div>
+		<div>
+			<h2>Stock Ticker Output: {{ name }} </h2>
+			<p>Today's closing price: {{ data['Close'].iloc[-1] }}</p>
+
+			{{ plot_div|indent(4)|safe }}
+
+
+
 	</body>
 </html>
