@@ -2,45 +2,66 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>IainTicker</title>
-		<link rel='stylesheet' type='text/css' href='/static/style_iainticker.css'>
+		<title>PoliNet</title>
+		<link rel='stylesheet' type='text/css' href='/static/style_polinet.css'>
 		<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 		<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Lato'>
 
 		{{ plot_resources|indent(4)|safe }}
 		{{ plot_script|indent(4)|safe }}
+		{{ plot_script2|indent(4)|safe }}
  
 	</head>
 	<body>
 		<div class=page>
-			<h1>Welcome to Iain's Stock Ticker!</h1>
+			<h1>Welcome to PoliNet!</h1>
   			<h2>You have selected: {{ name }}</h2>
 		</div>
 		<div>
-  			<h2>User Input</h2>
+  			<h2>Choose a Political Figure:</h2>
   			<div class=metanav>
 
-    			<h4>Here you can enter a new stock ticker eg. GOOG, and check desired features.</h4>
+    			<p>Here you can select a political figure from the list below.</p>
+    			<p>Hint: The list includes most candidates for federal office (House, Senate, Presidency) from the 2014 election cycle, and is therefore quite long (>2000 names). The list is arranged alphabetically by first name (as commonly used, e.g. Ted Cruz appears under 'Ted' not 'Edward'). With the dropdown menu active, you can jump to a particular politician by typing the first letters of their first name.</p>
 
     			<form id='input' method='post' action='index'>	
 	  			<p>
-					Ticker symbol: <input type='text' name='ticker' />
-	  			</p>
-	  			<p>
-					Closing price <input type="checkbox" name='features' value='Close'><br>
-					Adjusted closing price <input type="checkbox" name='features' value='Adj. Close'><br>
-					Volume <input type="checkbox" name='features' value='Volume'><br>
-	    			<input type="submit" value="Submit">
+					Politician: 
+					<select name='poli_name'>
+						<option value="Bernie Sanders (I)">Bernie Sanders (I)</option>
+						<option value="Ted Cruz (R)">Ted Cruz (R)</option>
+						<option value="Hillary Clinton (D)">Hillary Clinton (D)</option>
+						<option value="Rand Paul (R)">Rand Paul (R)</option>
+						<option value="Rahm Emanuel (D)">Rahm Emanuel (D)</option>
+						<option value="Steny H. Hoyer (D)">Steny H. Hoyer (D)</option>
+					</select>
+	  				<input type="submit" value="Submit">
 	  			</p>
 				</form>
+				<p>The displays below will update with your selected politician. You can see:</p>
+				<ul>
+					<li>The 'cluster' the politician you chose best fits into, based on their sources of funding</li>
+					<li>How their income distribution compares to the average: Which sectors do they recieve more of their support from?</li>
+					<li>Biographical links, including contact details. Make your own voice heard!</li>
+				</ul>
 
   			</div>
 		</div>
 		<div>
-			<h2>Stock Ticker Output: {{ name }} </h2>
-			<p>Today's closing price: {{ data['Close'].iloc[-1] }}</p>
+			<h2>Political Figure: {{ name }} </h2>
+			<p>Cluster: {{ cluster }}</p>
+			<p>{{ clustersize }}</p>
+			<p>{{ clusterdef }}</p>
 
 			{{ plot_div|indent(4)|safe }}
+
+			<h2>Second Plot!</h2>
+
+			{{ plot_div2|indent(4)|safe }}
+
+			<p>Print data as a check:</p>
+			<p>{{ data }}
+
 
 
 
