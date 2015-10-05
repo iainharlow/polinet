@@ -120,8 +120,8 @@ def index():
 			app.vars['poli_name'] = 'Ooops! Something went wrong. Choose someone else?'
 			app.vars['data_table'] = get_data(app.vars['Bernie Sanders (I)'])
 	else:
-		app.vars['poli_name'] = 'Bernie Sanders (I)'
-		app.vars['data_table'] = get_data(app.vars['poli_name'])
+		app.vars['poli_name'] = 'Steny H. Hoyer (D)'
+		app.vars['data_table'] = get_data('Steny H. Hoyer (D)')
 
 	df = app.vars['data_table']
 	cluster = get_cluster(app.vars['poli_name'])
