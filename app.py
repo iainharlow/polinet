@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import dill
 import os
+import requests
 from bokeh.embed import components
 from bokeh.plotting import figure, show, output_file
 from bokeh.resources import INLINE
@@ -18,7 +19,10 @@ app = Flask(__name__)
 
 app.vars = {}
 
-opensecrets_api_key = os.environ['OPENSECRETS_API_KEY']
+try:
+	opensecrets_api_key = os.environ['OPENSECRETS_API_KEY']
+except:
+	pass
 
 cols = ['A','B','C','D','E','F','G','H','J','K','L','M','Native American Tribes','T','X','Y','Z','Self','Individual Small','Individual Large']
 sources = ['Agriculture',
@@ -110,7 +114,8 @@ def get_data(poli_name):
 	f.drop('index',axis=1,inplace=True)
 	return f
 
-#def get_crp_id(poli_name):
+def get_crp_id(poli_name):
+	return pols.recipient_ext_id[pols.recipient_name == poli_name].iloc[0]
 
 
 def get_opensecrets_contribs(crp_id,cycle='2016'):
@@ -120,8 +125,12 @@ def get_opensecrets_contribs(crp_id,cycle='2016'):
                     'cycle': cycle
                    }
     try:
-        data = requests.get(endpoint, params=query_params).json()
-        return data
+        return requests.get(endpoint, params=query_params).json()
+    except:
+        pass
+    try:
+        query_params = {'apikey': opensecrets_api_key,'output': 'json','cycle': '2014'}
+        return requests.get(endpoint, params=query_params).json()
     except:
         return None 
 
@@ -151,7 +160,7 @@ def index():
 	cluster_size = cluster_sizes[cluster]
 	cluster_description = cluster_descriptions[cluster]
 
-	crp_id = 
+	crp_id = get_crp_id(app.vars['poli_name'])
 
 	'''
 	EXPERIMENTAL FIGURE CODE
