@@ -110,21 +110,20 @@ def get_data(poli_name):
 	f.drop('index',axis=1,inplace=True)
 	return f
 
-def get_crp_id(poli_name):
-	
+#def get_crp_id(poli_name):
+
 
 def get_opensecrets_contribs(crp_id,cycle='2016'):
     endpoint = 'http://www.opensecrets.org/api/?method=candContrib&cid='+crp_id
     query_params = {'apikey': opensecrets_api_key,
                     'output': 'json',
                     'cycle': cycle
-                   }                    
+                   }
     try:
-        data = requests.get( endpoint, params=query_params).json()
+        data = requests.get(endpoint, params=query_params).json()
+        return data
     except:
         return None 
-    return data
-
 
 @app.route('/')
 def redirect_to_index():
