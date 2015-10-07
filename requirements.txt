@@ -7,4 +7,6 @@ oauthlib==0.7.2
 requests>=2.2.1
 simplejson==3.8.0
 bokeh==0.9.0
+pandas==0.16.2
 Quandl==2.8.9
+

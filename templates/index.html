@@ -4,49 +4,60 @@
 		<meta charset="utf-8">
 		<title>PoliNet</title>
 		<link rel='stylesheet' type='text/css' href='/static/style_polinet.css'>
-		<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Roboto'>
 		<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Lato'>
 
 		{{ plot_resources|indent(4)|safe }}
 		{{ plot_script|indent(4)|safe }}
-		{{ plot_script2|indent(4)|safe }}
+
+		<style>
+			@font-face {
+			    font-family: MinionPro;
+			    src: url(static/minion_pro_regular.ttf);
+			}
+		</style>
  
 	</head>
 	<body>
-		<div class=page>
-			<h1>Welcome to PoliNet!</h1>
-  			<h2>You have selected: {{ name }}</h2>
+		<div class=title>
+			<h1>Poli-Net</h1>
+			<h2>Going beyond two-party descriptions of politicians.</h2>
 		</div>
-		<div>
-  			<h2>Choose a Political Figure:</h2>
-  			<div class=metanav>
 
-    			<p>Here you can select a political figure from the list below.</p>
-    			<p>Hint: The list includes most candidates for federal office (House, Senate, Presidency) from the 2014 election cycle, and is therefore quite long (>2000 names). The list is arranged alphabetically by first name (as commonly used, e.g. Ted Cruz appears under 'Ted' not 'Edward'). With the dropdown menu active, you can jump to a particular politician by typing the first letters of their first name.</p>
+		<div class=metanav>
 
-    			<form id='input' method='post' action='index'>	
-	  			<p>
-					Politician: 
-					<select name='poli_name'>
-						<option value="Bernie Sanders (I)">Bernie Sanders (I)</option>
-						<option value="Ted Cruz (R)">Ted Cruz (R)</option>
-						<option value="Hillary Clinton (D)">Hillary Clinton (D)</option>
-						<option value="Rand Paul (R)">Rand Paul (R)</option>
-						<option value="Rahm Emanuel (D)">Rahm Emanuel (D)</option>
-						<option value="Steny H. Hoyer (D)">Steny H. Hoyer (D)</option>
-					</select>
-	  				<input type="submit" value="Submit">
-	  			</p>
-				</form>
-				<p>The displays below will update with your selected politician. You can see:</p>
-				<ul>
-					<li>The 'cluster' the politician you chose best fits into, based on their sources of funding</li>
-					<li>How their income distribution compares to the average: Which sectors do they recieve more of their support from?</li>
-					<li>Biographical links, including contact details. Make your own voice heard!</li>
-				</ul>
+			<p>
+				Here you can select a political figure from the list below.
+			</p>
+			<p>
+				Hint: The list includes most candidates for federal office (House, Senate, Presidency) from the 2014 election cycle, and is therefore quite long (>2000 names). The list is arranged alphabetically by first name (as commonly used, e.g. Ted Cruz appears under 'Ted' not 'Edward'). With the dropdown menu active, you can jump to a particular politician by typing the first letters of their first name.
+			</p>
+			<p>
+				The displays below will update with your selected politician. You can see:
+			</p>
+			<ul>
+				<li>The 'cluster' the politician you chose best fits into, based on their sources of funding</li>
+				<li>How their income distribution compares to the average: Which sectors do they recieve more of their support from?</li>
+				<li>Biographical links, including contact details. Make your own voice heard!</li>
+			</ul>
 
-  			</div>
+			<form id='input' method='post' action='index' class='form'>	
+  			<p>
+				<select name='poli_name' class='select'>
+				{% for o in name_list %}
+				    <option value="{{ o }}" SELECTED>{{ o }}</option>
+				{% endfor %}
+				</select>
+			</p>
+			<p>
+  				<input type="submit" value="Submit" class='submit'>
+  			</p>
+			</form>
+
+
 		</div>
+
 		<div>
 			<h2>Political Figure: {{ name }} </h2>
 			<p>Cluster: {{ cluster }}</p>
@@ -54,14 +65,14 @@
 			<p>{{ clusterdef }}</p>
 		</div>
 
+		<div>
 			{{ plot_div|indent(4)|safe }}
+			<p>
+				The black spokes on the funding wheel show the proportion of the candidate's campaign contributions received from each source (note the log scale). The wider bars show the mean contribution proportion for <i>all</i> candidates; this is also color-coded to highlight which sectors the candidate receives proportionally more or less from than the average.
+			</p>
+		</div>
 
-<!--			<h2>Second Plot!</h2>
 
-			{{ plot_div2|indent(4)|safe }}
-
-			<p>Print data as a check:</p>
-			<p>{{ data }} -->
 
 
 
